@@ -1,0 +1,9 @@
+.venv
+.idea
+.claude
+.git
+**/__pycache__/
+*.pyc
+
+app/dataset/WineQT.csv
+app/dataset/.complete

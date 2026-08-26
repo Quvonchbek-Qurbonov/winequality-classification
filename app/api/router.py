@@ -1,0 +1,19 @@
+from fastapi import APIRouter, Query, HTTPException
+
+from app.schemas.schema import Models, DatasetCondition
+from app.services.service import train_model
+from app.services.data import Data
+
+router = APIRouter(tags=["classification"])
+
+
+@router.get("/model/train", status_code=200)
+def train_model_with_dataset(model_name: Models, dataset_condition: DatasetCondition):
+
+    return train_model(model_name, dataset_condition)
+
+
+@router.get("dataset/info", status_code=200)
+def get_dataset_info():
+    Data.get_broken_data()
+    return "Nice dataset"
