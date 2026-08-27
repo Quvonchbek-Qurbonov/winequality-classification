@@ -54,7 +54,6 @@ def hyperparameter_tuning(trash_data: bool = False):
 
     model = GaussianNB()
 
-    # Search across a logarithmic range for variance smoothing
     param_grid = {
         'var_smoothing': np.logspace(0, -9, num=100)
     }
