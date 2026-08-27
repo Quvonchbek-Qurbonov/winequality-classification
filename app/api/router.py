@@ -14,6 +14,7 @@ def train_model_with_dataset(model_name: Models, dataset_condition: DatasetCondi
 
 
 @router.get("dataset/info", status_code=200)
-def get_metrics():
-    metric = ordinary_training(trash_data=False)
-    return metric
+def get_metrics(hyper_tuning: bool, trash_data: bool):
+    if hyper_tuning:
+        return hyperparameter_tuning(trash_data)
+    return ordinary_training(trash_data)
