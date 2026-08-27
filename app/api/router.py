@@ -9,7 +9,6 @@ router = APIRouter(tags=["classification"])
 
 @router.get("/model/train", status_code=200)
 def train_model_with_dataset(model_name: Models, dataset_condition: DatasetCondition):
-
     return train_model(model_name, dataset_condition)
 
 
