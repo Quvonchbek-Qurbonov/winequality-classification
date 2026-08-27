@@ -2,20 +2,21 @@ import pandas as pd
 import numpy as np
 import random
 from app.core.config import settings
+from sklearn.preprocessing import StandardScaler
+
+data = pd.read_csv(settings.DATASET)
 
 
 class Data:
 
     @staticmethod
     def get_data():
-        data = pd.read_csv(settings.DATASET)
-        X = data.drop['quality', 'Id']
+        X = data.drop(columns=['quality', 'Id'])
         y = data['quality']
         return X, y
 
     @staticmethod
     def get_broken_data():
-        data = pd.read_csv(settings.DATASET)
 
         y = data['quality']
         X = data.drop(columns=['quality', 'Id'])
@@ -33,8 +34,26 @@ class Data:
         return X, y
 
     @staticmethod
-    def get_processed_data():
-        data = pd.read_csv(settings.DATASET)
-        X = data.drop['quality', 'Id']
+    def preprocess_data(X, y):
+        data = pd.concat([X, y], axis=1)
+        data.drop_duplicates(keep='first', inplace=True)  # Drop duplicates from dataset
+        data.dropna(inplace=True)  # Drop null values from dataset
+
+        X = data.drop(columns=['quality'])
         y = data['quality']
-        return data
+
+        for col in X.columns:
+            mean = X[col].mean()
+            std = X[col].std()
+
+            lower_bound = mean - 2*std
+            upper_bound = mean + 2*std
+
+            mask = (X[col] >= lower_bound) & (X[col] <= upper_bound)
+            X = X[mask]
+            y = y[mask]
+
+        scaler = StandardScaler()
+        X = scaler.fit_transform(X)
+
+        return X, y

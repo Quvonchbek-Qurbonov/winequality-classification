@@ -2,7 +2,7 @@ from fastapi import APIRouter, Query, HTTPException
 
 from app.schemas.schema import Models, DatasetCondition
 from app.services.service import train_model
-from app.services.data import Data
+from app.ml_models.ensemble import ordinary_training, hyperparameter_tuning
 
 router = APIRouter(tags=["classification"])
 
@@ -14,6 +14,6 @@ def train_model_with_dataset(model_name: Models, dataset_condition: DatasetCondi
 
 
 @router.get("dataset/info", status_code=200)
-def get_dataset_info():
-    Data.get_broken_data()
-    return "Nice dataset"
+def get_metrics():
+    metric = ordinary_training(trash_data=False)
+    return metric
