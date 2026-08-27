@@ -14,9 +14,8 @@ def ordinary_training(trash_data: bool = False):
         X, y = Data.get_broken_data()
     X, y = Data.preprocess_data(X, y)
 
-    # Standard AdaBoost Classifier with default settings
     model = AdaBoostClassifier(
-        estimator=DecisionTreeClassifier(max_depth=1),  # Default decision stump
+        estimator=DecisionTreeClassifier(max_depth=1),
         n_estimators=50,
         learning_rate=1.0,
         random_state=55
