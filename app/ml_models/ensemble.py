@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score, recall_score, f1_score, precision_score
 from app.services.data import Data
 from app.schemas.schema import Metrics
+from app.services.save_model import save_model
 
 
 def ordinary_training(trash_data: bool = False):
@@ -41,6 +42,7 @@ def ordinary_training(trash_data: bool = False):
         recall=recall_score(y_test, y_pred, average='macro'),
         f1=f1_score(y_test, y_pred, average='macro')
     )
+    save_model(model, 'ensemble_model')
 
     return metrics
 

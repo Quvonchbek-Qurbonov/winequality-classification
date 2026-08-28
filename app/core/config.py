@@ -12,5 +12,6 @@ class Settings(BaseSettings):
     )
     DATASET_DIR: Path
     DATASET: str
+    MODEL_DIR: Path
 
 settings = Settings()

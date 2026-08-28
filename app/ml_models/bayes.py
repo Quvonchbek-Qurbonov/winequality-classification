@@ -5,6 +5,7 @@ from sklearn.metrics import accuracy_score, recall_score, f1_score, precision_sc
 from app.services.data import Data
 import timeit
 from app.schemas.schema import Metrics
+from app.services.save_model import save_model
 
 
 def ordinary_training(trash_data: bool = False):  # just training without hyperparameter tuning
@@ -36,6 +37,7 @@ def ordinary_training(trash_data: bool = False):  # just training without hyperp
         recall=recall_score(y_test, y_pred, average='macro'),
         f1=f1_score(y_test, y_pred, average='macro')
     )
+    save_model(model, 'bayes_model')
 
     return metrics
 
